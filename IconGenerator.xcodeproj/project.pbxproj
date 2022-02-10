@@ -11,6 +11,7 @@
 		918A44EF27B5B8A900796F38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A44EE27B5B8A900796F38 /* ContentView.swift */; };
 		918A44F127B5B8AA00796F38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918A44F027B5B8AA00796F38 /* Assets.xcassets */; };
 		918A44F427B5B8AA00796F38 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918A44F327B5B8AA00796F38 /* Preview Assets.xcassets */; };
+		918A450227B5BA9800796F38 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 918A450127B5BA9800796F38 /* Contents.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		918A44F027B5B8AA00796F38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		918A44F327B5B8AA00796F38 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		918A44F527B5B8AA00796F38 /* IconGenerator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IconGenerator.entitlements; sourceTree = "<group>"; };
+		918A450127B5BA9800796F38 /* Contents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +38,7 @@
 		918A44E027B5B8A900796F38 = {
 			isa = PBXGroup;
 			children = (
+				918A450127B5BA9800796F38 /* Contents.json */,
 				918A44EB27B5B8A900796F38 /* IconGenerator */,
 				918A44EA27B5B8A900796F38 /* Products */,
 			);
@@ -129,6 +132,7 @@
 			files = (
 				918A44F427B5B8AA00796F38 /* Preview Assets.xcassets in Resources */,
 				918A44F127B5B8AA00796F38 /* Assets.xcassets in Resources */,
+				918A450227B5BA9800796F38 /* Contents.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

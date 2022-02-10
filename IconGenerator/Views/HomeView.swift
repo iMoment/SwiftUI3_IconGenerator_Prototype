@@ -14,12 +14,19 @@ struct HomeView: View {
     var body: some View {
         VStack {
             if let image = iconVM.selectedImage {
-                
+                // MARK: Displaying Image with Action
+                Group {
+                    Image(nsImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 250, height: 250)
+                        .clipped()
+                }
             } else {
                 // TODO: Add Button
                 ZStack {
                     Button {
-                        
+                        iconVM.selectImage()
                     } label: {
                         Image(systemName: "plus")
                             .font(.system(size: 22, weight: .bold))
@@ -27,6 +34,11 @@ struct HomeView: View {
                             .padding(15)
                             .background(.primary, in: RoundedRectangle(cornerRadius: 10))
                     }
+                    Text("1024 X 1024 is recommended!")
+                        .font(.caption2)
+                        .foregroundColor(Color.gray)
+                        .padding(.bottom, 10)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
                 }
             }
         }

@@ -12,6 +12,8 @@
 		918A44F127B5B8AA00796F38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918A44F027B5B8AA00796F38 /* Assets.xcassets */; };
 		918A44F427B5B8AA00796F38 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918A44F327B5B8AA00796F38 /* Preview Assets.xcassets */; };
 		918A450227B5BA9800796F38 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 918A450127B5BA9800796F38 /* Contents.json */; };
+		918A450627B5C39900796F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A450527B5C39900796F38 /* HomeView.swift */; };
+		918A450827B5C3B500796F38 /* IconVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A450727B5C3B500796F38 /* IconVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		918A44F327B5B8AA00796F38 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		918A44F527B5B8AA00796F38 /* IconGenerator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IconGenerator.entitlements; sourceTree = "<group>"; };
 		918A450127B5BA9800796F38 /* Contents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
+		918A450527B5C39900796F38 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		918A450727B5C3B500796F38 /* IconVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			children = (
 				918A44EC27B5B8A900796F38 /* IconGeneratorApp.swift */,
 				918A44EE27B5B8A900796F38 /* ContentView.swift */,
+				918A450427B5C38500796F38 /* ViewModel */,
+				918A450327B5C38100796F38 /* Views */,
 				918A44F027B5B8AA00796F38 /* Assets.xcassets */,
 				918A44F527B5B8AA00796F38 /* IconGenerator.entitlements */,
 				918A44F227B5B8AA00796F38 /* Preview Content */,
@@ -70,6 +76,22 @@
 				918A44F327B5B8AA00796F38 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		918A450327B5C38100796F38 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				918A450527B5C39900796F38 /* HomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		918A450427B5C38500796F38 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				918A450727B5C3B500796F38 /* IconVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,8 +165,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				918A450627B5C39900796F38 /* HomeView.swift in Sources */,
 				918A44EF27B5B8A900796F38 /* ContentView.swift in Sources */,
 				918A44ED27B5B8A900796F38 /* IconGeneratorApp.swift in Sources */,
+				918A450827B5C3B500796F38 /* IconVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

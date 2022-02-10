@@ -10,8 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
-        Text("Icon Generator Prototype")
-            .padding()
+        HomeView()
     }
 }
 

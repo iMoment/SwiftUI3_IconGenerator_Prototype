@@ -47,24 +47,38 @@ class IconVM: ObservableObject {
             // 2. Create AppIcon.appiconset folder
             let modifiedURL = folderURL.appendingPathComponent("AppIcon.appiconset")
             
-            do {
-                let manager = FileManager.default
-                try manager.createDirectory(at: modifiedURL, withIntermediateDirectories: true, attributes: [:])
-                
-                // 3. Writing Contents.json file inside the folder
-                self.writeContentsToFile(folderURL: modifiedURL.appendingPathComponent("Contents.json"))
-                // 4. Generating Icon set and writing inside the folder
-                if let selectedImage = self.selectedImage {
+            self.isGenerating = true
+
+            DispatchQueue.global(qos: .userInteractive).async {
+                do {
+                    let manager = FileManager.default
+                    try manager.createDirectory(at: modifiedURL, withIntermediateDirectories: true, attributes: [:])
                     
-                    self.iconSizes.forEach { size in
-                        let imageSize = CGSize(width: CGFloat(size), height: CGFloat(size))
-                        let imageURL = modifiedURL.appendingPathComponent("\(size).png")
-                        selectedImage.resizeImage(size: imageSize)
-                            .writeImage(to: imageURL)
+                    // 3. Writing Contents.json file inside the folder
+                    self.writeContentsToFile(folderURL: modifiedURL.appendingPathComponent("Contents.json"))
+                    // 4. Generating Icon set and writing inside the folder
+                    if let selectedImage = self.selectedImage {
+                        
+                        self.iconSizes.forEach { size in
+                            let imageSize = CGSize(width: CGFloat(size), height: CGFloat(size))
+                            let imageURL = modifiedURL.appendingPathComponent("\(size).png")
+                            selectedImage.resizeImage(size: imageSize)
+                                .writeImage(to: imageURL)
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.isGenerating = false
+                            // Saved Alert
+                            self.alertMessage = "Generated Succesfully!"
+                            self.showAlert.toggle()
+                        }
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.isGenerating = false
                     }
                 }
-            } catch {
-                print(error.localizedDescription)
             }
         }
     }
@@ -106,10 +120,14 @@ class IconVM: ObservableObject {
 // MARK: Extending NSImage to resize selected image
 extension NSImage {
     func resizeImage(size: CGSize) -> NSImage {
-        let newImage = NSImage(size: size)
+        // Reducting Scaling Factor
+        let scale = NSScreen.main?.backingScaleFactor ?? 1
+        let newSize = CGSize(width: size.width / scale, height: size.height / scale)
+        
+        let newImage = NSImage(size: newSize)
         newImage.lockFocus()
         
-        self.draw(in: NSRect(origin: .zero, size: size))
+        self.draw(in: NSRect(origin: .zero, size: newSize))
         
         newImage.unlockFocus()
         

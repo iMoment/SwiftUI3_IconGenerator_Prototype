@@ -21,6 +21,7 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 250, height: 250)
                         .clipped()
+                        .onTapGesture(perform: iconVM.selectImage)
                     
                     // MARK: Generate Button
                     Button {
@@ -57,9 +58,7 @@ struct HomeView: View {
         .frame(width: 400, height: 400)
         .buttonStyle(.plain)
         // MARK: Alert View
-        .alert(iconVM.alertMessage, isPresented: $iconVM.showAlert) {
-            
-        }
+        .alert(iconVM.alertMessage, isPresented: $iconVM.showAlert) {}
         // MARK: Loading View
         .overlay {
             ZStack {

@@ -12,7 +12,7 @@ struct HomeView: View {
     @Environment(\.self) var environment
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             if let image = iconVM.selectedImage {
                 // MARK: Displaying Image with Action
                 Group {
@@ -21,6 +21,18 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 250, height: 250)
                         .clipped()
+                    
+                    // MARK: Generate Button
+                    Button {
+                        iconVM.generateIconSet()
+                    } label: {
+                        Text("Generate Icon Set")
+                            .foregroundColor(environment.colorScheme == .dark ? Color.black : Color.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 18)
+                            .background(.primary, in: RoundedRectangle(cornerRadius: 10))
+                    }
+                    .padding(.top, 10)
                 }
             } else {
                 // TODO: Add Button
@@ -44,6 +56,26 @@ struct HomeView: View {
         }
         .frame(width: 400, height: 400)
         .buttonStyle(.plain)
+        // MARK: Alert View
+        .alert(iconVM.alertMessage, isPresented: $iconVM.showAlert) {
+            
+        }
+        // MARK: Loading View
+        .overlay {
+            ZStack {
+                if iconVM.isGenerating {
+                    Color.black
+                        .opacity(0.25)
+                    
+                    ProgressView()
+                        .padding()
+                        .background(Color.white, in: RoundedRectangle(cornerRadius: 10))
+                    // Always Light Mode
+                        .environment(\.colorScheme, .light)
+                }
+            }
+        }
+        .animation(.easeInOut, value: iconVM.isGenerating)
     }
 }
 

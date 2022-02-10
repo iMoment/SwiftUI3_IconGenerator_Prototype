@@ -16,6 +16,11 @@ class IconVM: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
     
+    // MARK: Icon Set Image Sizes
+    @Published var iconSizes: [Int] = [
+        20,60,58,87,80,120,180,40,29,76,152,167,1024,16,32,64,128,256,512,1024
+    ]
+    
     // MARK: Picking Image using NSOpen Panel
     func selectImage() {
         let panel = NSOpenPanel()
@@ -45,9 +50,34 @@ class IconVM: ObservableObject {
             do {
                 let manager = FileManager.default
                 try manager.createDirectory(at: modifiedURL, withIntermediateDirectories: true, attributes: [:])
+                
+                // 3. Writing Contents.json file inside the folder
+                self.writeContentsToFile(folderURL: modifiedURL.appendingPathComponent("Contents.json"))
+                // 4. Generating Icon set and writing inside the folder
+                if let selectedImage = self.selectedImage {
+                    
+                    self.iconSizes.forEach { size in
+                        let imageSize = CGSize(width: CGFloat(size), height: CGFloat(size))
+                        let imageURL = modifiedURL.appendingPathComponent("\(size).png")
+                        selectedImage.resizeImage(size: imageSize)
+                            .writeImage(to: imageURL)
+                    }
+                }
             } catch {
-                // MARK: Error Occurred
+                print(error.localizedDescription)
             }
+        }
+    }
+    
+    // MARK: Writing Contents.json
+    func writeContentsToFile(folderURL: URL) {
+        do {
+            let bundle = Bundle.main.path(forResource: "Contents", ofType: "json") ?? ""
+            let url = URL(fileURLWithPath: bundle)
+            
+            try Data(contentsOf: url).write(to: folderURL, options: .atomic)
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
@@ -70,5 +100,26 @@ class IconVM: ObservableObject {
         } else {
             // MARK: Error Occurred
         }
+    }
+}
+
+// MARK: Extending NSImage to resize selected image
+extension NSImage {
+    func resizeImage(size: CGSize) -> NSImage {
+        let newImage = NSImage(size: size)
+        newImage.lockFocus()
+        
+        self.draw(in: NSRect(origin: .zero, size: size))
+        
+        newImage.unlockFocus()
+        
+        return newImage
+    }
+    
+    // MARK: Writing resized image as PNG
+    func writeImage(to: URL) {
+        guard let data = tiffRepresentation, let representation = NSBitmapImageRep(data: data), let pngData = representation.representation(using: .png, properties: [:]) else { return }
+        
+        try? pngData.write(to: to, options: .atomic)
     }
 }
